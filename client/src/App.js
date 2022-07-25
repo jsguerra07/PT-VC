@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 
+
 function App() {
 
   /* function validate (input1){
@@ -62,13 +63,33 @@ function App() {
     })
     e.target.reset()
   }
-
+  let color = "impar";
+  let color1 = "par";
 
   return (
     <div >
+      <h1 >VISUAL CONTACT PART 2</h1>
+      <hr/>
+      <h2>POTENCIAL DE REACT</h2>
+      <hr/>
+      {
+        messages.map((ms, index) => 
+        
+          (index%2) === 0 ? 
+          <ul className = "container">
+            <li><h3 className = {color} key={index}>{index}: {ms}</h3></li> 
+          </ul>
+          : <ul className = "container">
+            <li><h3 className = {color1} key={index}>{index}: {ms}</h3></li>
+          </ul>
+        
+        )
+      }
+      <hr/>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
           <h1>VISUAL CONTACT</h1>
+          <hr/>
           <h2>CHOCOLATE FEAST</h2>
           <label>Initial amount of money</label>
           <input type="text" name="n" placeholder="...N" onChange={(e) => handleInputChange(e)}></input>

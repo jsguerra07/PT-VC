@@ -3,6 +3,9 @@ const express = require("express")
 const app = express()
 const morgan = require("morgan")
 
+const logger = require("./utils/logger")
+
+
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -14,7 +17,23 @@ app.use((req, res, next) => {
     next();
 });
 
-let array = ["hola", "buenos", "dias", "chao", "prueba"];
+let array = ["Arquitectura basada en componentes", 
+             "Componentes reutilizables",
+             "Código Abierto",
+             "Renderizado eficiente del lado del cliente y del servidor",
+             "Servicio avanzado de inyección de dependencias",
+             "Curva de aprendizaje rápida",
+             "Flexibilidad- se adapta a diferentes stacks",
+             "micro-frontends",
+             "Soportada por facebook",
+             "Gran comunidad que aporta al desarrollo",
+             "Crea aplicaciones web y móviles",
+             "Pasar de app a móvil es relativamente rápido",
+             "Aplicaciones móviles multiplataforma",
+             "Código JSX- similar a HTML",
+             "SPA- eficientes en cuanto a rendimiento y velocidad de renderizado",
+             "Soporta Typescript"
+            ];
 let array2 = []
 
 app.get("/", (req, res) => {
@@ -58,10 +77,30 @@ app.post("/chocolateFeast", async (req, res) => {
     }catch(error) {
         res.send(error)
     }
+}) 
+
+//SEGUNDA PARTE
+
+app.post("/webhook", async (req,res) => {
+    try{
+        //const exampleData = req.body
+        const {EventType, Timestamp, TaskAttributes} = req.body
+        //console.log(exampleData);
+        console.log(EventType, Timestamp, TaskAttributes);
+        logger.info(
+            {
+                Fecha_Hora: Timestamp,
+                Tipo_evento: EventType,
+                Identificador_conversacion: TaskAttributes.conversationSid,
+                Datos_de_contacto: TaskAttributes.data
+            })
+        res.send("webhook is working")
+    }catch (error){
+        res.send(error)
+    }
 })
 
 
-
 app.listen(3001, () => {
-    console.log("listen on port 3001")
+    logger.info("listen on port 3001")
 })
